@@ -63,4 +63,7 @@ Dado que estou logado no sistema
     # Placeholder caso haja verificação de login
 
 Quando eu realizar o logout
+    #Realizar logout
+
+Então o navegador deve ser fechado
     Close Browser
