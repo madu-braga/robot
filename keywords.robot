@@ -3,6 +3,13 @@ Library    SeleniumLibrary
 Variables    variables.py
 
 *** Keywords ***
+
+Tirar Screenshot Numerada
+    [Arguments]     ${base_name}
+    ${screenshot_name}    Set Variable    ${base_name}_${SCREENSHOT_INDEX}.png
+    Capture Page Screenshot    ${screenshot_name}
+    ${SCREENSHOT_INDEX}    Set Variable    ${SCREENSHOT_INDEX + 1}
+
 # Keywords de Login e Navegação
 Dado que o sistema está acessível na página de login
     Open Browser    ${URL}    ${BROWSER}
@@ -49,10 +56,14 @@ Então o funcionário deve ser removido com sucesso
 
 # Keywords para Logout
 Dado que estou logado no sistema
-    # Placeholder caso haja verificação de login
+    Wait Until Page Contains Element    //div[@class='oxd-sidepanel-body']
 
 Quando eu realizar o logout
-    #Realizar logout
+    Wait Until Page Contains Element    //span[@class='oxd-userdropdown-tab']
+    Click Element    //span[@class='oxd-userdropdown-tab']
+    Wait Until Page Contains Element    //a[@class='oxd-userdropdown-link'][text()='Logout']
+    Click Element    //a[@class='oxd-userdropdown-link'][text()='Logout']
+    Wait Until Page Contains Element    //button[@class='oxd-button oxd-button--medium oxd-button--main orangehrm-login-button']
 
 Então o navegador deve ser fechado
     Close Browser
